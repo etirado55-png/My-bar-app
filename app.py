@@ -32,24 +32,32 @@ with tabs[0]:
                 st.write(f"**Instructions:** {drink[3]}")
 
 # --- TAB 2: MY BAR ---
+# --- TAB 2: MY BAR ---
 with tabs[1]:
     st.header("Inventory")
-    # A master list of ingredients to pick from
-    master_list = ["Vodka", "Gin", "Tequila", "Rum", "Lime Juice", "Lemon Juice", "Simple Syrup", "Soda Water", "Triple Sec", "Blue Curaçao", "Malibu", "Coconut Rum", "Coconut Cream",
-                   "Granadine", "Pineapple Juice", "Parcha Juice", "Limes", "Mint", "Coconut Water"]
     
-    # Check what's currently in the DB to pre-fill the UI
+    # 1. Pull what is currently saved in your database
     conn = connect_db()
     cursor = conn.cursor()
     cursor.execute("SELECT ingredient FROM inventory")
     current_stock = [row[0] for row in cursor.fetchall()]
     conn.close()
 
+    # 2. Define your basics
+    basics = ["Vodka", "Gin", "Tequila", "Rum", "Lime Juice", "Lemon Juice", "Simple Syrup", "Soda Water", "Triple Sec"]
+    
+    # 3. COMBINE THEM (This prevents the error)
+    # This creates a list of all basics + any custom items you've added
+    master_list = list(set(basics + current_stock))
+    master_list.sort()
+
+    # 4. Show the selector
     on_hand = st.multiselect("Select what's on the shelf:", master_list, default=current_stock)
     
     if st.button("Update Bar"):
         update_inventory(on_hand)
         st.success("Inventory Updated!")
+        st.rerun() # Refresh to show changes
 
 # --- TAB 3: ADD RECIPE ---
 with tabs[2]:
@@ -68,5 +76,6 @@ with tabs[2]:
         
         add_recipe(name, ingredients, instructions, img_url)
         st.success(f"Added {name}!")
+
 
 
