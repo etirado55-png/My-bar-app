@@ -45,7 +45,7 @@ with tabs[1]:
 
     # 2. Define your basics
     basics = ["Vodka", "Gin", "Tequila", "Rum", "Lime Juice", "Lemon Juice", "Simple Syrup", "Soda Water", "Triple Sec", "Blue Curaçao", "Malibu", "Coconut Rum", "Coconut Cream",
-                   "Granadine", "Pineapple Juice", "Parcha Juice", "Limes", "Mint", "Coconut Water"]]
+                   "Granadine", "Pineapple Juice", "Parcha Juice", "Limes", "Mint", "Coconut Water"]
     
     # 3. COMBINE THEM (This prevents the error)
     # This creates a list of all basics + any custom items you've added
@@ -77,6 +77,7 @@ with tabs[2]:
         
         add_recipe(name, ingredients, instructions, img_url)
         st.success(f"Added {name}!")
+
 
 
 
