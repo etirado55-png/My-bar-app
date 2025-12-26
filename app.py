@@ -36,7 +36,7 @@ with tabs[1]:
     st.header("Inventory")
     # A master list of ingredients to pick from
     master_list = ["Vodka", "Gin", "Tequila", "Rum", "Lime Juice", "Lemon Juice", "Simple Syrup", "Soda Water", "Triple Sec", "Blue Curaçao", "Malibu", "Coconut Rum", "Coconut Cream",
-                   "Granadine", "Pinaple Juice", "Parcha Juice", "Limes", "Mint", "Coconut Water"]
+                   "Granadine", "Pineapple Juice", "Parcha Juice", "Limes", "Mint", "Coconut Water"]
     
     # Check what's currently in the DB to pre-fill the UI
     conn = connect_db()
@@ -68,4 +68,5 @@ with tabs[2]:
         
         add_recipe(name, ingredients, instructions, img_url)
         st.success(f"Added {name}!")
+
 
