@@ -30,7 +30,22 @@ with tabs[0]:
                     st.image(drink[4])
                 st.write(f"**Ingredients:** {drink[2]}")
                 st.write(f"**Instructions:** {drink[3]}")
+# Add this inside "with tabs[0]:" (the Menu tab)
+st.divider()
+st.subheader("All Recipes (Master List)")
 
+conn = connect_db()
+cursor = conn.cursor()
+cursor.execute("SELECT * FROM recipes")
+all_recipes = cursor.fetchall()
+conn.close()
+
+for recipe in all_recipes:
+    with st.expander(f"📋 {recipe[1]}"):
+        if recipe[4]: # Image
+            st.image(recipe[4], width=200)
+        st.write(f"**Ingredients:** {recipe[2]}")
+        st.write(f"**Instructions:** {recipe[3]}")
 # --- TAB 2: MY BAR ---
 # --- TAB 2: MY BAR ---
 with tabs[1]:
@@ -77,6 +92,7 @@ with tabs[2]:
         
         add_recipe(name, ingredients, instructions, img_url)
         st.success(f"Added {name}!")
+
 
 
 
